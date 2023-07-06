@@ -1,0 +1,4 @@
+INSERT_UPDATE Question;code[unique=true];question;questionCustomer(uid);answer;answerCustomer(uid);product(code)
+;Q1;What is the true color of this product?;anonymous;blued green;anonymous;693923
+;Q2;What are the dimensions of this product?;anonymous;10x20;anonymous;693923
+;Q3;Is this product good in practice?;anonymous;Yes;anonymous;693923

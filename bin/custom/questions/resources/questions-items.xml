@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<relations>
+		<relation code="Product2Question" localized="false">
+			<sourceElement qualifier="product" type="Product" cardinality="one">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement qualifier="questions" type="Question" collectiontype="set" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+	</relations>
+	<itemtypes>
+		<itemtype generate="true" code="Question" autocreate="true">
+			<deployment table="Questions" typecode="30270" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>question code</description>
+					<modifiers optional="false"/>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="question" type="java.lang.String">
+					<description>question content</description>
+					<modifiers optional="false"/>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="questionCustomer" type="Customer">
+					<description>customer asked question</description>
+					<defaultvalue></defaultvalue>
+					<modifiers optional="false"/>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="answer" type="java.lang.String">
+					<description>answer content</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="answerCustomer" type="Customer">
+					<description>customer answered question</description>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+</items>
