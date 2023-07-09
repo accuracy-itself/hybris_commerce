@@ -36,4 +36,19 @@
 		<property name="extensionName" value="questions" />
 	</bean>
 
+	<alias name="defaultQuestionConverter" alias="questionConverter"/>
+	<bean id="defaultQuestionConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.training.questions.data.QuestionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="questionDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<alias name="defaultQuestionDataPopulator" alias="questionDataPopulator"/>
+	<bean id="defaultQuestionDataPopulator" class="de.hybris.training.questions.populators.QuestionDataPopulator" >
+		<property name="typeService" ref="typeService"/>
+	</bean>
 </beans>

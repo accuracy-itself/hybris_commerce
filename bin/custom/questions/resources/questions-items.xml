@@ -35,7 +35,6 @@
 				</attribute>
 				<attribute qualifier="questionCustomer" type="Customer">
 					<description>customer asked question</description>
-					<defaultvalue></defaultvalue>
 					<modifiers optional="false"/>
 					<persistence type="property" />
 				</attribute>
@@ -46,6 +45,20 @@
 				<attribute qualifier="answerCustomer" type="Customer">
 					<description>customer answered question</description>
 					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="QuestionsCMSComponent" generate="true" extends="SimpleCMSComponent" autocreate="true"
+				  jaloclass="org.training.questions.jalo.QuestionsCMSComponent">
+			<attributes>
+				<attribute qualifier="numberOfQuestionsToShow" type="java.lang.Integer">
+					<defaultvalue>3</defaultvalue>
+					<modifiers optional="false"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="fontSize" type="java.lang.Integer">
+					<persistence type="property"/>
 				</attribute>
 			</attributes>
 		</itemtype>

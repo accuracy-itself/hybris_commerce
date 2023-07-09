@@ -16,5 +16,11 @@
 		<property name="flag" type="boolean"/>
 	</bean>
 	-->
-
+	<bean class="de.hybris.training.questions.data.QuestionData">
+		<property name="code" type="String"/>
+		<property name="question" type="String"/>
+		<property name="questionCustomer" type="String"/>
+		<property name="answer" type="String"/>
+		<property name="answerCustomer" type="String"/>
+	</bean>
 </beans>

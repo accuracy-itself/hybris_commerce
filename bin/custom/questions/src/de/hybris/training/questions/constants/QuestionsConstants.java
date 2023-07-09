@@ -1,20 +1,18 @@
 /*
- * Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+ *  
+ * Copyright (c) 2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
 package de.hybris.training.questions.constants;
 
-/**
- * Global class for all Questions constants. You can add global constants for your extension into this class.
- */
-
-public final class QuestionsConstants extends GeneratedQuestionsConstants
+@SuppressWarnings({"deprecation","squid:CallToDeprecatedMethod"})
+public class QuestionsConstants extends GeneratedQuestionsConstants
 {
 	public static final String EXTENSIONNAME = "questions";
-
+	
 	private QuestionsConstants()
 	{
-		//empty to avoid instantiating this constant class
+		//empty
 	}
-
-	// implement here constants used by this extension
+	
+	
 }
