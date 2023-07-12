@@ -25,9 +25,12 @@
 			<product:productPrimaryImage product="${product}" format="thumbnail"/>
 		</a>
 		<ycommerce:testId code="searchPage_productName_link_${product.code}">
+
 			<a class="product__list--name" href="${fn:escapeXml(productUrl)}">${ycommerce:sanitizeHTML(product.name)}</a>
 		</ycommerce:testId>
-
+        <div class="questionCount">
+            <img src="/images/questionsIcon.png" alt="icon"/> ${product.questionCount}
+        </div>
 		<div class="product__list--price-panel">
 			<c:if test="${not empty product.potentialPromotions}">
 				<div class="product__listing--promo">

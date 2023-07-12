@@ -38,7 +38,9 @@
 					</c:forEach>
 				</div>
 			</c:if>
-			
+			<div class="questionCount">
+                <img src="/trainingstorefront/medias/questionsIcon.png?context=bWFzdGVyfHJvb3R8MjMwNnxpbWFnZS9wbmd8YUdObUwyZ3dNQzg0T0RBeE5EZ3pNRE13TlRVNExuQnVad3xkMjc0MzM1MGI4OGQ3MDQwNjIwMGE3Mzg3ZmE2ZmMwZGRhYzAyZWIwNWNkNTAwMDMxZThjYzUwOTcyNGZmODBj" alt="icon"/> ${product.questionCount}
+            </div>
 			<ycommerce:testId code="product_productPrice">
 				<div class="price"><product:productListerItemPrice product="${product}"/></div>
 			</ycommerce:testId>

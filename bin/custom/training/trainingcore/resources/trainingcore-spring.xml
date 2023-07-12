@@ -41,6 +41,9 @@
         <property name="priceService" ref="priceService"/>
     </bean>
 
+	<bean id="productQuestionCountValueProvider" class="de.hybris.training.core.search.solrfacetsearch.provider.impl.ProductQuestionCountValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
 
 	<bean id="electronicsCategorySource" parent="abstractCategorySource">
 		<property name="rootCategory" value="1"/>

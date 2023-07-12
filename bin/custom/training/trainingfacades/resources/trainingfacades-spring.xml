@@ -121,6 +121,12 @@
 		</property>
 	</bean>
 
+	<alias name="customSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+	<bean id="customSearchResultProductPopulator"
+		  class="de.hybris.training.facades.populators.CustomSearchResultVariantProductPopulator"
+		  parent="variantCommerceSearchResultProductPopulator">
+	</bean>
+
 	<bean id="customerEmailContext" class="de.hybris.training.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
 		<property name="customerConverter" ref="customerConverter"/>
 	</bean>
