@@ -8,6 +8,8 @@ import de.hybris.platform.solrfacetsearch.config.exceptions.FieldValueProviderEx
 import de.hybris.platform.solrfacetsearch.provider.FieldNameProvider;
 import de.hybris.platform.solrfacetsearch.provider.FieldValue;
 import de.hybris.platform.solrfacetsearch.provider.FieldValueProvider;
+import de.hybris.platform.solrfacetsearch.provider.RangeNameProvider;
+import de.hybris.platform.solrfacetsearch.provider.impl.AbstractPropertyFieldValueProvider;
 import de.hybris.training.questions.model.QuestionModel;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -17,8 +19,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class ProductQuestionCountValueProvider implements FieldValueProvider, Serializable {
+public class ProductQuestionCountValueProvider extends AbstractPropertyFieldValueProvider implements FieldValueProvider, Serializable {
     private FieldNameProvider fieldNameProvider;
+    private RangeNameProvider rangeNameProvider;
 
     @Override
     public Collection<FieldValue> getFieldValues(final IndexConfig indexConfig, final IndexedProperty indexedProperty, final Object model) throws FieldValueProviderException {
@@ -44,27 +47,41 @@ public class ProductQuestionCountValueProvider implements FieldValueProvider, Se
         throw new FieldValueProviderException("Error: item is not a Product type !");
     }
 
-    protected List<FieldValue> createFieldValue(final ProductModel product, final LanguageModel language, final IndexedProperty indexedProperty) {
+    protected List<FieldValue> createFieldValue(final ProductModel product, final LanguageModel language, final IndexedProperty indexedProperty) throws FieldValueProviderException {
         final List<FieldValue> fieldValues = new ArrayList<FieldValue>();
         // get Questions by product
         final Set<QuestionModel> questions = product.getQuestions();
         if (questions != null) {
             // add Question Count value to the fieldValues list
             addFieldValues(fieldValues, indexedProperty, language, questions.size());
+        } else {
+            addFieldValues(fieldValues, indexedProperty, language, 0);
         }
         return fieldValues;
     }
 
-    protected void addFieldValues(final List<FieldValue> fieldValues, final IndexedProperty indexedProperty, final LanguageModel language, final Object value) {
-        // generate all Solr fields based on different qualifiers
+    protected void addFieldValues(final List<FieldValue> fieldValues, final IndexedProperty indexedProperty, final LanguageModel language, final Object value) throws FieldValueProviderException {
         final Collection<String> fieldNames = fieldNameProvider.getFieldNames(indexedProperty, language == null ? null : language.getIsocode());
+        List<String> rangeNames = rangeNameProvider.getRangeNameList(indexedProperty, value);
+
         for (final String fieldName : fieldNames) {
-            fieldValues.add(new FieldValue(fieldName, value));
+            if (rangeNames.isEmpty()) {
+                fieldValues.add(new FieldValue(fieldName, value));
+            } else {
+                for (final String rangeName : rangeNames) {
+                    fieldValues.add(new FieldValue(fieldName, rangeName == null ? value : rangeName));
+                }
+            }
         }
     }
 
     @Required
     public void setFieldNameProvider(final FieldNameProvider fieldNameProvider) {
         this.fieldNameProvider = fieldNameProvider;
+    }
+
+    @Required
+    public void setRangeNameProvider(final RangeNameProvider rangeNameProvider) {
+        this.rangeNameProvider = rangeNameProvider;
     }
 }

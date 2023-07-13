@@ -2,3 +2,10 @@ INSERT_UPDATE Question;code[unique=true];question;questionCustomer(uid);answer;a
 ;Q1;What is the true color of this product?;anonymous;blued green;anonymous;8796246310913
 ;Q2;What are the dimensions of this product?;anonymous;10x20;anonymous;8796246310913
 ;Q3;Is this product good in practice?;anonymous;Yes;anonymous;8796246310913
+;Q11;Can you tell me the true color of this product?;anonymous;blued green;anonymous;8796247392257
+;Q12;What are the dimensions of this product?;anonymous;10x20;anonymous;8796247392257
+;Q13;Is this product good in practice?;anonymous;Yes;anonymous;8796247392257
+;Q14;Is this product good in practice?;anonymous;Yes;anonymous;8796247392257
+;Q15;Is this product good in practice?;anonymous;Yes;anonymous;8796247392257
+;Q16;Is this product good in practice?;anonymous;Yes;anonymous;8796247392257
+;Q17;Is this product good in practice?;anonymous;Yes;anonymous;8796247392257

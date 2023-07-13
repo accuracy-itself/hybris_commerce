@@ -7,9 +7,7 @@ import de.hybris.platform.commerceservices.search.resultdata.SearchResultValueDa
 public class CustomSearchResultVariantProductPopulator extends SearchResultVariantProductPopulator {
     @Override
     public void populate(SearchResultValueData source, ProductData target) {
-
         super.populate(source, target);
-
-        target.setQuestionCount(this.<Integer> getValue(source, "questionCount"));
+        target.setQuestionCount(this.<String>getValue(source, "questionCount"));
     }
 }

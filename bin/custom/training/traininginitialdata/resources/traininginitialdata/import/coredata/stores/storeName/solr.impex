@@ -44,17 +44,17 @@ UPDATE BaseSite;uid[unique=true];solrFacetSearchConfiguration(name)
 
 # Define price range set
 INSERT_UPDATE SolrValueRangeSet;name[unique=true];qualifier;type;solrValueRanges(&rangeValueRefID)
-;apparelQuestionCountRangeGBP;GBP;int;rangeRefGBP1,rangeRefGBP2,rangeRefGBP3,rangeRefGBP4,rangeRefGBP5,rangeRefGBP6,rangeRefGBP7
+;apparelQuestionCountRange;;int;rangeRef1,rangeRef2,rangeRef3,rangeRef4,rangeRef5,rangeRef6,rangeRef7
 
-# Define price ranges
+# Define question count ranges
 INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=true];name[unique=true];from;to
-                            ;rangeRefGBP1 ;apparelQuestionCountRangeGBP;    0;   0; 0
-                            ;rangeRefGBP2 ;apparelQuestionCountRangeGBP;   1;  1; 1
-                            ;rangeRefGBP3 ;apparelQuestionCountRangeGBP;   2;  2; 2
-                            ;rangeRefGBP4 ;apparelQuestionCountRangeGBP; 3; 3;3
-                            ;rangeRefGBP5 ;apparelQuestionCountRangeGBP; 4; 4;4
-                            ;rangeRefGBP6 ;apparelQuestionCountRangeGBP; 5; 5;5
-                            ;rangeRefGBP7 ;apparelQuestionCountRangeGBP; 6 and more; 6;500
+                            ;rangeRef1 ;apparelQuestionCountRange;    0;   0; 0
+                            ;rangeRef2 ;apparelQuestionCountRange;   1;  1; 1
+                            ;rangeRef3 ;apparelQuestionCountRange;   2;  2; 2
+                            ;rangeRef4 ;apparelQuestionCountRange; 3; 3;3
+                            ;rangeRef5 ;apparelQuestionCountRange; 4; 4;4
+                            ;rangeRef6 ;apparelQuestionCountRange; 5; 5;5
+                            ;rangeRef7 ;apparelQuestionCountRange; 6 and more; 6;500
 
 # Non-facet properties
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;valueProviderParameter
@@ -67,7 +67,7 @@ INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[
 
 # Other facet properties
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];facet[default=true];facetType(code);facetSort(code);priority;visible;useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;facetDisplayNameProvider;customFacetSortProvider;topValuesProvider;rangeSets(name)
-;$solrIndexedType;questionCount;int;;false;;;;MultiSelectOr;Alpha;4100;true;;;productQuestionCountValueProvider
+;$solrIndexedType;questionCount;int;;false;;;;MultiSelectOr;Alpha;4100;true;;;productQuestionCountValueProvider;;;;apparelQuestionCountRange
 
 #Other solr properties
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);localized[default=false];fieldValueProvider
@@ -84,5 +84,5 @@ INSERT_UPDATE SolrSortField;sort(indexedType(identifier),code)[unique=true];fiel
 
 
 INSERT_UPDATE SolrSearchQueryProperty; indexedProperty(name, solrIndexedType(identifier))[unique = true]; facet[default = true]; facetType(code); priority; facetDisplayNameProvider; facetSortProvider; facetTopValuesProvider; includeInResponse[default = true]; searchQueryTemplate(name, indexedType(identifier))[unique = true][default = DEFAULT:$solrIndexedType]
-                                     ; questionCount:$solrIndexedType         ;       ; MultiSelectOr ; 2000  ;     productQuestionCountValueProvider         ;                               ;                          ; ;
+                                     ; questionCount:$solrIndexedType         ;       ; MultiSelectOr ; 2000  ;              ;                               ;                          ; ;
 
