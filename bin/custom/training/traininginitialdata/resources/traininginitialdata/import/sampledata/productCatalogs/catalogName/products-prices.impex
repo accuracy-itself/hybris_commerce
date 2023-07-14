@@ -4,12 +4,13 @@
 # ImpEx for Importing Prices
 
 # Macros / Replacement Parameter definitions
-$productCatalog=__PRODUCT_CATALOG_NAME__
-
+$productCatalog=apparelProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
 $prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
 
 # Set product approval status to Approved only for those products that have prices.
 $approved=approvalstatus(code)[default='approved']
 
-UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;Europe1PriceFactory_PTG(code)
+INSERT_UPDATE Product; code[unique=true]; $catalogVersion;$prices;unit(code[default=pieces]);
+;300051511;;1 pieces = 100 GBP, 2 pieces = 90 GBP, 3 pieces = 10 GBP, 7 pieces = 5 GBP; pieces;
+;300611884;;1 pieces = 150 GBP, 2 pieces = 90 GBP, 20 pieces = 1 GBP; pieces;
