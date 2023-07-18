@@ -41,6 +41,13 @@
         <property name="priceService" ref="priceService"/>
     </bean>
 
+	<alias name="defaultRangeNameProvider" alias="rangeNameProvider" />
+	<bean id="defaultRangeNameProvider" class="de.hybris.platform.solrfacetsearch.provider.impl.DefaultRangeNameProvider" />
+
+	<bean id="productQuestionCountValueProvider" class="de.hybris.training.core.search.solrfacetsearch.provider.impl.ProductQuestionCountValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="rangeNameProvider" ref="rangeNameProvider"/>
+	</bean>
 
 	<bean id="electronicsCategorySource" parent="abstractCategorySource">
 		<property name="rootCategory" value="1"/>
