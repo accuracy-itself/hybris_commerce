@@ -6,6 +6,9 @@
 # Macros / Replacement Parameter definitions
 $productCatalog=__PRODUCT_CATALOG_NAME__
 $defaultPromoGrp=__DEFAULT_PROMO_GRP__
+$ruleImportProcessor=processor=de.hybris.platform.ruleengineservices.impex.impl.ConditionalImportProcessor,condition=de.hybris.platform.ruleengineservices.impex.impl.RuleImportCondition
+$defaultElectronicsPromoGrp=electronicsPromoGrp
+$defaultApparelUKPromoGrp=apparelUKPromoGrp
 
 $favCustomers=favoriteCustomers
 $bigSpenders=bigSpenders
@@ -36,3 +39,66 @@ INSERT_UPDATE ProductPerfectPartnerPromotion;PromotionGroup(Identifier[default=$
 INSERT PromotionPriceRow;&priceId;Currency(isocode);price
 
 INSERT_UPDATE ProductBundlePromotion;PromotionGroup(Identifier[default=$defaultPromoGrp]);enabled[default=true,unique=true];code[unique=true];title;description;priority;products(code,$catalogVersion);bundlePrices(&priceId)
+
+INSERT_UPDATE PromotionSourceRule;code[unique=true];name;description;priority;stackable[default=false];website(Identifier)[default=$defaultElectronicsPromoGrp];conditions;actions;messageFired;
+;"discount_cart_above_100_10_percent_applied";"Activated 10% Discount for Cart Over $100.00";"The cart total is over $100.00 therefore a 10% discount has been applied.";250;;;"[
+  {
+    ""definitionId"": ""y_cart_total"",
+      ""parameters"": {
+         ""value"": {
+            ""uuid"": ""f1e6d59c-56ae-4848-8d07-b7b2b0601234"",
+            ""type"": ""Map(ItemType(Currency),java.math.BigDecimal)"",
+            ""value"": {
+               ""USD"": 100
+            }
+         },
+         ""operator"": {
+            ""uuid"": ""7e33261a-beff-4fff-bb5d-e42f5c685326"",
+            ""type"": ""Enum(de.hybris.platform.ruledefinitions.AmountOperator)"",
+            ""value"": ""GREATER_THAN_OR_EQUAL""
+         }
+      },
+      ""children"": []
+   }
+]";"[
+   {
+      ""definitionId"": ""y_order_percentage_discount"",
+      ""parameters"": {
+         ""value"": {
+            ""uuid"": ""a8b73c28-46dd-4d8f-ae7f-41921660ff7e"",
+            ""type"": ""java.math.BigDecimal"",
+            ""value"": 10
+         }
+      }
+   }
+]";"The cart total is over $100.00 therefore a 10% discount has been applied.";
+
+
+INSERT_UPDATE PromotionSourceRule[$ruleImportProcessor];code[unique=true];priority;maxAllowedRuns;ruleGroup(code);conditions;actions;website(Identifier)[default=$defaultElectronicsPromoGrp];excludeFromStorefrontDisplay[default=false];name[lang=en];description[lang=en];messageFired[lang=en];status(code)[unique=true,default=UNPUBLISHED]
+;code_coupon_10percent_discount;30;1;couponPromotionRuleGroup;"[
+    {
+        ""definitionId"": ""y_qualifying_coupons"",
+        ""parameters"": {
+            ""coupons"": {
+                ""uuid"":""c4988a76-c0fc-4de3-a801-6f3f756e93ae"",
+                ""type"":""List(ItemType(AbstractCoupon))"",
+                ""value"":[""discount_coupon 10% discount Coupon""]
+            }
+        },
+        ""children"":[]
+    }
+]";"[
+    {
+        ""definitionId"": ""y_order_percentage_discount"",
+        ""parameters"": {
+            ""value"": {
+                ""uuid"": ""a8b73c28-46dd-4d8f-ae7f-41921660ff7e"",
+                ""type"": ""java.math.BigDecimal"",
+                ""value"": 10
+            }
+        }
+    }
+]";;;Get 10% discount on the cart using a coupon;A fixed discount is added to the cart when a valid multi code coupon code is entered;You have received {4c21e41f-6933-471a-8cba-3f87cf83c97d} discount on cart using the coupon code {c4988a76-c0fc-4de3-a801-6f3f735e93ae}
+
+INSERT_UPDATE singlecodecoupon;couponId[unique=true];name;active;maxredemptionspercustomer;maxtotalredemptions;
+;"discount_coupon 10% discount Coupon";"10% cart discount coupon that can be applied to the cart.";1;50;100;
