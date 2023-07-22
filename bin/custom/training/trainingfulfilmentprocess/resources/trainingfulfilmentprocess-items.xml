@@ -2,9 +2,12 @@
 <!--
  Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
 -->
-<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xsi:noNamespaceSchemaLocation="items.xsd">
-	
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="QuestionCollection" elementtype="Question" autocreate="true" generate="true" type="list"/>
+	</collectiontypes>
+
 	<itemtypes>
 			<itemtype code="ConsignmentProcess" autocreate="false" generate="false" >
 			<attributes>
@@ -30,5 +33,7 @@
 					
 			</attributes>
 			</itemtype>
+
+
 	</itemtypes>
 </items>

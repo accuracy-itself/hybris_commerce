@@ -62,5 +62,11 @@
 				</attribute>
 			</attributes>
 		</itemtype>
+
+		<itemtype code="SendNewQuestionsEmailProcess" extends="StoreFrontCustomerProcess" autocreate="true" generate="true">
+			<attributes>
+
+			</attributes>
+		</itemtype>
 	</itemtypes>
 </items>
