@@ -301,7 +301,10 @@
 	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
 		<property name="resource" value="classpath:/trainingcore/processes/sendNotPickedUpConsignmentCanceledEmailProcess.xml"/>
 	</bean>
-
+	<bean id="sendNewQuestionsEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/trainingcore/processes/sendNewQuestionsEmailProcess.xml"/>
+	</bean>
 	<!-- Actions -->
 	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
 	      abstract="true">
@@ -358,6 +361,10 @@
 	</bean>
 	<bean id="generateNotPickedUpConsignmentCanceledEmail" parent="abstractGenerateEmailAction">
 		<property name="frontendTemplateName" value="NotPickedUpConsignmentCanceledEmailTemplate"/>
+	</bean>
+
+	<bean id="generateNewQuestionsEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SendQuestionsEmailTemplate"/>
 	</bean>
 
 	<bean id="removeSentEmail"
@@ -504,6 +511,18 @@
 		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
 		<property name="eventService" ref="eventService" />
 		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<alias name="defaultQuestionsDAO" alias="questionsDAO" />
+	<bean id="defaultQuestionsDAO" class="de.hybris.training.core.daos.impl.DefaultQuestionsDAO">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="sendQuestionsEmailsJob" class="de.hybris.training.core.job.SendQuestionsEmailsJob" parent="abstractJobPerformable" >
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="cronJobHistoryService" ref="cronJobHistoryService"/>
 	</bean>
 
 	<import resource="/trainingcore/processes/quote/quote-buyer-process-spring.xml"/>

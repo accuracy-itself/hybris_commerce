@@ -28,5 +28,6 @@ public class QuestionDataPopulator implements Populator<QuestionModel, QuestionD
         target.setQuestionCustomer(source.getQuestionCustomer().getName());
         target.setAnswer(source.getAnswer());
         target.setAnswerCustomer(source.getAnswerCustomer().getName());
+        target.setProductCode(source.getProduct().getCode());
     }
 }

@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$emailResource=jar:de.hybris.training.core.setup.CoreSystemSetup&/trainingcore/import/emails
+$lang=en
+
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity'];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                              ;email-sendQuestionsBody;de.hybris.training.facades.process.email.context.SendQuestionsEmailContext;;$emailResource/email-sendQuestionsBody.vm
+                              ;email-sendQuestionsSubject;de.hybris.training.facades.process.email.context.SendQuestionsEmailContext;;$emailResource/email-sendQuestionsSubject.vm
+
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;SendQuestionsEmailTemplate;send questions Email Template;true;sendQuestionsEmail;email-sendQuestionsSubject;email-sendQuestionsBody;EmailPage
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];fromEmail[lang=en];fromName[lang=en]
+;;sendQuestionsEmail;Send Questions Email;SendQuestionsEmailTemplate;true;;alena.stankevich.off@gmail.com.com;Hybris Training
+

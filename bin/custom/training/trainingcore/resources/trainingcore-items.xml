@@ -30,8 +30,29 @@
     <itemtypes>
 
         <!-- Add your item definitions here -->
+        <itemtype code="SendQuestionsEmailsCronJob" extends="CronJob"  generate="true" autocreate="true" />
 
-
+        <itemtype code="SendNewQuestionsEmailProcess" extends="StoreFrontCustomerProcess"
+                  jaloclass="de.hybris.training.core.jalo.SendNewQuestionsEmailProcess"
+                  autocreate="true" generate="true">
+            <attributes>
+                <attribute qualifier="questionsDate" type="java.lang.String">
+                    <description>Start date for new questions</description>
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="email" type="java.lang.String">
+                    <description>Target email</description>
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="displayName" type="java.lang.String">
+                    <description>Name to display</description>
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
         <!-- TypeGroups are for structure of this file only -->
 
         <typegroup name="Apparel">
