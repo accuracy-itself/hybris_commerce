@@ -23,7 +23,8 @@
                 		
         
         <meta key="deprecated" value="true"/>
-                	
+
+        <meta key="backoffice-module" value="true"/>
     
     </extension>
         
