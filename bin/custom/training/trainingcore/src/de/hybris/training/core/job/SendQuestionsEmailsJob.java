@@ -11,6 +11,7 @@ import de.hybris.platform.servicelayer.cronjob.CronJobHistoryService;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.site.BaseSiteService;
+import de.hybris.training.core.daos.QuestionsDAO;
 import de.hybris.training.core.model.SendNewQuestionsEmailProcessModel;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -29,6 +30,7 @@ public class SendQuestionsEmailsJob extends AbstractJobPerformable<CronJobModel>
     private ModelService modelService;
     private BaseSiteService baseSiteService;
     private CronJobHistoryService cronJobHistoryService;
+    private QuestionsDAO questionsDAO;
 
     protected BusinessProcessService getBusinessProcessService() {
         return businessProcessService;
@@ -64,18 +66,17 @@ public class SendQuestionsEmailsJob extends AbstractJobPerformable<CronJobModel>
     }
 
     @Required
+    public void setQuestionsDAO(final QuestionsDAO questionsDAO) {
+        this.questionsDAO = questionsDAO;
+    }
+
+    @Required
     public void setCronJobHistoryService(final CronJobHistoryService cronJobHistoryService) {
         this.cronJobHistoryService = cronJobHistoryService;
     }
 
     @Override
     public PerformResult perform(final CronJobModel cronJob) {
-        final SendNewQuestionsEmailProcessModel sendNewQuestionsEmailProcessModel =
-                (SendNewQuestionsEmailProcessModel) getBusinessProcessService()
-                .createProcess("sendNewQuestionsEmailProcess-" + System.currentTimeMillis(),
-                        "sendNewQuestionsEmailProcess");
-        BaseSiteModel baseSiteModel = baseSiteService.getBaseSiteForUID(WEBSITE_ID);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         Date questionsDate;
         List<CronJobHistoryModel> histories = cronJobHistoryService.getCronJobHistoryBy(cronJob.getCode());
         CronJobHistoryModel lastSuccessHistory = histories.stream()
@@ -90,16 +91,23 @@ public class SendQuestionsEmailsJob extends AbstractJobPerformable<CronJobModel>
             questionsDate = new Date();
         }
 
-        sendNewQuestionsEmailProcessModel.setSite(baseSiteModel);
-        sendNewQuestionsEmailProcessModel.setLanguage(baseSiteModel.getDefaultLanguage());
-        sendNewQuestionsEmailProcessModel.setStore(baseSiteModel.getStores().get(0));
-        sendNewQuestionsEmailProcessModel.setEmail(TARGET_EMAIL);
-        sendNewQuestionsEmailProcessModel.setDisplayName(DISPLAY_NAME);
-        //sendNewQuestionsEmailProcessModel.setQuestionsDate(questionsDate);
-        sendNewQuestionsEmailProcessModel.setQuestionsDate(simpleDateFormat.format(questionsDate));
+        if (questionsDAO.checkAmountByDate(questionsDate)) {
 
-        getModelService().save(sendNewQuestionsEmailProcessModel);
-        getBusinessProcessService().startProcess(sendNewQuestionsEmailProcessModel);
+            final SendNewQuestionsEmailProcessModel sendNewQuestionsEmailProcessModel =
+                    (SendNewQuestionsEmailProcessModel) getBusinessProcessService()
+                            .createProcess("sendNewQuestionsEmailProcess-" + System.currentTimeMillis(),
+                                    "sendNewQuestionsEmailProcess");
+            BaseSiteModel baseSiteModel = baseSiteService.getBaseSiteForUID(WEBSITE_ID);
+            sendNewQuestionsEmailProcessModel.setSite(baseSiteModel);
+            sendNewQuestionsEmailProcessModel.setLanguage(baseSiteModel.getDefaultLanguage());
+            sendNewQuestionsEmailProcessModel.setStore(baseSiteModel.getStores().get(0));
+            sendNewQuestionsEmailProcessModel.setEmail(TARGET_EMAIL);
+            sendNewQuestionsEmailProcessModel.setDisplayName(DISPLAY_NAME);
+            sendNewQuestionsEmailProcessModel.setQuestionsDate(questionsDate);
+
+            getModelService().save(sendNewQuestionsEmailProcessModel);
+            getBusinessProcessService().startProcess(sendNewQuestionsEmailProcessModel);
+        }
         return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
     }
 }

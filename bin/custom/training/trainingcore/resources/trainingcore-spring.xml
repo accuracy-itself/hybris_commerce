@@ -523,6 +523,7 @@
 		<property name="businessProcessService" ref="businessProcessService"/>
 		<property name="baseSiteService" ref="baseSiteService"/>
 		<property name="cronJobHistoryService" ref="cronJobHistoryService"/>
+		<property name="questionsDAO" ref="questionsDAO"/>
 	</bean>
 
 	<import resource="/trainingcore/processes/quote/quote-buyer-process-spring.xml"/>

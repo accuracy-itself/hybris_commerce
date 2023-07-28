@@ -6,5 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface QuestionsDAO {
-    List<QuestionModel> getQuestions(Date date);
+    List<QuestionModel> getQuestionsAfterDate(Date date);
+    boolean checkAmountByDate(Date date);
 }

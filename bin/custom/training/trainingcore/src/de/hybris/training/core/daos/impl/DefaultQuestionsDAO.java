@@ -11,11 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 public class DefaultQuestionsDAO implements QuestionsDAO {
-    private static final String DATE_FORMAT = "YYYY-MM-DD";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private FlexibleSearchService flexibleSearchService;
 
     @Override
-    public List<QuestionModel> getQuestions(Date date) {
+    public List<QuestionModel> getQuestionsAfterDate(Date date) {
         final String questionsDate = new SimpleDateFormat(DATE_FORMAT).format(date);
 
         final String queryString = //
@@ -25,6 +25,13 @@ public class DefaultQuestionsDAO implements QuestionsDAO {
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryString);
 
         return flexibleSearchService.<QuestionModel>search(query).getResult();
+    }
+
+    @Override
+    public boolean checkAmountByDate(Date date) {
+        boolean areQuestions = getQuestionsAfterDate(date).size() > 0;
+
+        return areQuestions;
     }
 
     @Required

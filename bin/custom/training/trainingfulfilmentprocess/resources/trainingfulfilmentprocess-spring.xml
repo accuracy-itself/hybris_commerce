@@ -114,10 +114,4 @@
 		<property name="sessionService" ref="sessionService"/>
 	</bean>
 
-
-	<bean id="sendQuestionsEmailsJob" class="de.hybris.training.fulfilmentprocess.jobs.SendQuestionsEmailsJob"  >
-		<property name="modelService" ref="modelService"/>
-		<property name="businessProcessService" ref="businessProcessService"/>
-		<property name="baseSiteService" ref="baseSiteService"/>
-	</bean>
 </beans>

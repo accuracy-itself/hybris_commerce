@@ -2,7 +2,7 @@
  *  
  * Copyright (c) 2023 SAP SE or an SAP affiliate company. All rights reserved.
  */
-package de.hybris.training.questions.jalo;
+package de.hybris.training.core.jalo;
 
 import de.hybris.platform.jalo.Item;
 import de.hybris.platform.jalo.JaloBusinessException;

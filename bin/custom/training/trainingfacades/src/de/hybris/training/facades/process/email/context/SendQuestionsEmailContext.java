@@ -15,10 +15,7 @@ import de.hybris.training.core.model.SendNewQuestionsEmailProcessModel;
 import de.hybris.training.questions.data.QuestionData;
 import de.hybris.training.questions.model.QuestionModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,15 +24,9 @@ import java.util.List;
  * Velocity context for a customer email.
  */
 public class SendQuestionsEmailContext extends AbstractEmailContext<SendNewQuestionsEmailProcessModel> {
-    private static final String DATE_PATTERN = "YYYY-MM-DD";
-    private ModelService modelService;
     private QuestionsDAO questionsDAO;
     public List<QuestionData> questions;
     private Converter<QuestionModel, QuestionData> questionConverter;
-
-    public void setModelService(final ModelService modelService) {
-        this.modelService = modelService;
-    }
 
     public void setQuestionsDAO(final QuestionsDAO questionsDAO) {
         this.questionsDAO = questionsDAO;
@@ -49,14 +40,11 @@ public class SendQuestionsEmailContext extends AbstractEmailContext<SendNewQuest
     public void init(final SendNewQuestionsEmailProcessModel sendNewQuestionsEmailProcessModel, final EmailPageModel emailPageModel) {
         super.init(sendNewQuestionsEmailProcessModel, emailPageModel);
         questions = new ArrayList<>();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
-        Date questionsDate;
-        try {
-            questionsDate = simpleDateFormat.parse(sendNewQuestionsEmailProcessModel.getQuestionsDate());
-        } catch (ParseException e) {
+        Date questionsDate = sendNewQuestionsEmailProcessModel.getQuestionsDate();
+        if (questionsDate == null) {
             questionsDate = new Date();
         }
-        questionsDAO.getQuestions(questionsDate)
+        questionsDAO.getQuestionsAfterDate(questionsDate)
                 .forEach(questionModel -> questions.add(questionConverter.convert(questionModel)));
         put(EMAIL, sendNewQuestionsEmailProcessModel.getEmail());
         put(DISPLAY_NAME, sendNewQuestionsEmailProcessModel.getDisplayName());

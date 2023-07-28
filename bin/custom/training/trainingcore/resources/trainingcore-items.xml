@@ -30,13 +30,11 @@
     <itemtypes>
 
         <!-- Add your item definitions here -->
-        <itemtype code="SendQuestionsEmailsCronJob" extends="CronJob"  generate="true" autocreate="true" />
-
         <itemtype code="SendNewQuestionsEmailProcess" extends="StoreFrontCustomerProcess"
                   jaloclass="de.hybris.training.core.jalo.SendNewQuestionsEmailProcess"
                   autocreate="true" generate="true">
             <attributes>
-                <attribute qualifier="questionsDate" type="java.lang.String">
+                <attribute qualifier="questionsDate" type="java.util.Date">
                     <description>Start date for new questions</description>
                     <modifiers/>
                     <persistence type="property"/>
