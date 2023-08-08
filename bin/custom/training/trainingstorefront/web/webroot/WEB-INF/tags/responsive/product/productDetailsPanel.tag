@@ -26,6 +26,10 @@
 						</ycommerce:testId>
 						<div class="description">${ycommerce:sanitizeHTML(product.summary)}</div>
 					</div>
+					    <ycommerce:testId code="productDetails_productNamePrice_label_${product.code}">
+                                    Warranty : ${product.warrantyYears} Years
+                        </ycommerce:testId>
+
 				</div>
 
 				<div class="col-sm-12 col-md-9 col-lg-6">
