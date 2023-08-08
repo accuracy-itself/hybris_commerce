@@ -1,0 +1,105 @@
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+
+
+    <!-- Explorer tree configuration -->
+    <context component="explorer-tree" merge-by="module" parent="auto" module="questions">
+        <explorer-tree:explorer-tree>
+                <explorer-tree:navigation-node id="Questions Addon">
+                    <explorer-tree:type-node code="Question" id="Questions" />
+                </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+
+    <!-- Question configuration -->
+    <!-- Base configuration -->
+    <context type="Question" component="base" merge-by="type">
+        <y:base>
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <!-- Create area configuration -->
+    <context component="create-wizard" type="Question">
+        <wz:flow id="Question" title="create.title(ctx.TYPE_CODE)">
+            <wz:step id="step1" label="">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newQuestion">
+                        <wz:property qualifier="question"
+                                     description="field.eventconfiguration.exportName.description"/>
+                        <wz:property qualifier="questionCustomer"
+                                     description="field.eventconfiguration.eventClass.description"/>
+                        <wz:property qualifier="answer"
+                                     description="field.eventconfiguration.destinationTarget.description"/>
+                        <wz:property qualifier="answerCustomer"
+                                     description="field.eventconfiguration.priority.description"/>
+                        <wz:property qualifier="creationtime" exclude="true"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:done visible="newQuestion.question != null"/>
+                    <wz:done visible="newQuestion.questionCustomer != null"/>
+                    <wz:done/>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+    <!-- Editor area configuration -->
+    <context type="Question" component="editor-area" merge-by="type">
+        <editorArea:editorArea>
+            <editorArea:tab name="backoffice.personalizationservices.properties">
+                <editorArea:section
+                        name="backoffice.personalizationservices.section.attributes">
+                    <editorArea:attribute qualifier="code"/>
+                    <editorArea:attribute qualifier="question"/>
+                    <editorArea:attribute qualifier="questionCustomer"/>
+                    <editorArea:attribute qualifier="answer"/>
+                    <editorArea:attribute qualifier="answerCustomer"/>
+                    <editorArea:attribute qualifier="product"/>
+                </editorArea:section>
+            </editorArea:tab>
+            <editorArea:tab name="Q&amp;A">
+                <editorArea:section
+                        name="Question">
+                    <editorArea:attribute qualifier="question"/>
+                    <editorArea:attribute qualifier="answer"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    <!-- List view configuration -->
+    <context type="Question" component="listview" merge-by="type">
+        <list-view:list-view>
+            <list-view:column qualifier="product"/>
+            <list-view:column qualifier="question"/>
+            <list-view:column qualifier="questionCustomer"/>
+            <list-view:column qualifier="answer"/>
+            <list-view:column qualifier="answerCustomer"/>
+        </list-view:list-view>
+    </context>
+    <!-- Advanced search configuration -->
+    <context type="Question" component="advanced-search" merge-by="type">
+        <advanced-search:advanced-search>
+            <advanced-search:field-list>
+                <advanced-search:field name="product" selected="true"/>
+                <advanced-search:field name="questionCustomer" selected="true"/>
+            </advanced-search:field-list>
+        </advanced-search:advanced-search>
+    </context>
+    <!-- Simple search configuration -->
+    <context type="Question" component="simple-search" merge-by="type">
+        <simple-search:simple-search>
+            <simple-search:field name="code"/>
+        </simple-search:simple-search>
+    </context>
+
+</config>

@@ -1,0 +1,5 @@
+INSERT_UPDATE ServicelayerJob;code[unique=true];SpringId;
+;sendQuestionsEmailsJob;sendQuestionsEmailsJob;
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;sendQuestionsEmailsCronJob;sendQuestionsEmailsJob;false;en

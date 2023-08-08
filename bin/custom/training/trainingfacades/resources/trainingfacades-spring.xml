@@ -183,6 +183,14 @@
 		<property name="priceDataFactory" ref="priceDataFactory"/>
 	</bean>
 
+	<bean id="sendQuestionsEmailContext" class="de.hybris.training.facades.process.email.context.SendQuestionsEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+		<property name="questionsDAO" ref="questionsDAO"/>
+		<property name="modelService" ref="modelService" />
+		<property name="questionConverter" ref="questionConverter"/>
+	</bean>
+
 	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
 	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="de.hybris.training.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
 		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
