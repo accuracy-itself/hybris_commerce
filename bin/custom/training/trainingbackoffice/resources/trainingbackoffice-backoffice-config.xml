@@ -24,16 +24,14 @@
 	   </na:notification-area>
 	</context>
 
-        <context merge-by="type" parent="GenericItem" type="Product" component="editor-area">
-            <editorArea:editorArea>
-                <editorArea:tab name="backoffice.personalizationservices.properties">
-                    <editorArea:section
-                            name="backoffice.personalizationservices.section.attributes">
-                        <editorArea:attribute qualifier="warrantyYears"/>
-                    </editorArea:section>
-                </editorArea:tab>
-            </editorArea:editorArea>
-        </context>
-
+	<context merge-by="type" parent="GenericItem" type="Product" component="editor-area">
+		<editorArea:editorArea name="">
+			<editorArea:tab name="hmc.tab.product.properties">
+				<editorArea:section name="hmc.section.product.warranty">
+					<editorArea:attribute qualifier="warrantyYears" label="warrantyDescription"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
 
 </config>

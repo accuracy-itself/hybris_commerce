@@ -9,5 +9,6 @@ public class CustomSearchResultVariantProductPopulator extends SearchResultVaria
     public void populate(SearchResultValueData source, ProductData target) {
         super.populate(source, target);
         target.setQuestionCount(this.<String>getValue(source, "questionCount"));
+        target.setWarrantyYears(this.<Integer>getValue(source, "warrantyYears"));
     }
 }
