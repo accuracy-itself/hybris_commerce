@@ -28,6 +28,15 @@
     </enumtypes>
 
     <itemtypes>
+        <itemtype code="Product" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="warrantyYears" type="java.lang.Integer">
+                    <description>The available years of warranty</description>
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
 
         <!-- Add your item definitions here -->
         <itemtype code="SendNewQuestionsEmailProcess" extends="StoreFrontCustomerProcess"
